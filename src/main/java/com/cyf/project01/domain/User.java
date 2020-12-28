@@ -1,11 +1,17 @@
 package com.cyf.project01.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class User {
+
     private Integer id;
+    @NotEmpty
     private String userName;
+    @NotEmpty
     private String password;
+    @NotNull
     private Integer sex;
 
     public Integer getId() {

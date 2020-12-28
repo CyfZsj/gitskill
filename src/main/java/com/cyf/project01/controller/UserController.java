@@ -5,6 +5,7 @@ import com.cyf.project01.domain.User;
 import com.cyf.project01.service.UserService;
 import com.cyf.project01.util.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +14,11 @@ import java.util.List;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("list")
     public JsonData list(){
@@ -22,17 +26,9 @@ public class UserController {
     }
 
     @PostMapping("save")
-    public JsonData save(@RequestBody User user){
-        if(user.getPassword()==null){
-            return JsonData.buildError("密码为空");
-        } else if(user.getUserName()==null){
-            return JsonData.buildError("用户名为空");
-        }else if(user.getSex()==null){
-            return JsonData.buildError("性别为空");
-        }else {
-            userService.save(user);
-            return JsonData.buildSuccess("注册用户成功");
-        }
+    public JsonData save(@Validated @RequestBody User user){
+        userService.save(user);
+        return JsonData.buildSuccess("注册用户成功");
     }
 
     @GetMapping("delete")

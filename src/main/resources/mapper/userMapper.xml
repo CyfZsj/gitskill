@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cyf.project01.mapper.UserMapper">
+    <update id="update" parameterType="User">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName != null "> user_name = #{userName,jdbcType=VARCHAR},</if>
+            <if test="password != null "> summary = #{password,jdbcType=VARCHAR},</if>
+            <if test="sex != null "> sex = #{sex,jdbcType=int },</if>
+        </trim>
+        where
+        id = #{id}
+    </update>
+</mapper>
